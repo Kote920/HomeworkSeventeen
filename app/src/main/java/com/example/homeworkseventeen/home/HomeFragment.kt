@@ -25,11 +25,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
 
     override fun setUp() {
-        requireActivity().onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                // Do nothing on back press
-            }
-        })
 
         binding.tvEmail.text = args.email
 

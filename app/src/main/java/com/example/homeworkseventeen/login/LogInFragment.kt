@@ -45,13 +45,13 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(FragmentLogInBinding::i
 
 
     override fun setUp() {
-        if (!args.checker) {
-            viewModel.logOut()
-        } else if (viewModel.checkRemember()) {
-
-            openHome(viewModel.getEmail()!!)
-
-        }
+//        if (!args.checker) {
+//            viewModel.logOut()
+//        } else if (viewModel.checkRemember()) {
+//
+//            openHome(viewModel.getEmail()!!)
+//
+//        }
 
     }
 
@@ -62,7 +62,7 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(FragmentLogInBinding::i
                 viewModel.logIn("eve.holt@reqres.in", binding.etPassword.text.toString())
                 binding.btnLogIn.isEnabled = false
                 bindObserves()
-                viewModel.setRemember(isChecked(binding.cbRememberMe))
+                viewModel.setRemember(binding.cbRememberMe.isChecked)
 
             }
 
@@ -100,7 +100,11 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(FragmentLogInBinding::i
                             binding.pbLogIn.visibility = View.GONE
                             Toast.makeText(requireContext(), "log in success", Toast.LENGTH_SHORT)
                                 .show()
-                            openHome(viewModel.getEmail()!!)
+                            d("bla", activeUser.token + activeUser.email)
+                            viewModel.saveToken(activeUser.token!!, activeUser.email!!, binding.cbRememberMe.isChecked)
+                            Toast.makeText(requireContext(), binding.cbRememberMe.isChecked.toString(), Toast.LENGTH_SHORT).show()
+                            openHome(activeUser.email!!)
+
 
 
                         }
@@ -125,10 +129,6 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(FragmentLogInBinding::i
     private fun openRegister() {
         val action = LogInFragmentDirections.actionLogInFragmentToRegisterFragment()
         findNavController().navigate(action)
-    }
-
-    private fun isChecked(rememberBox: AppCompatCheckBox): Boolean {
-        return rememberBox.isChecked
     }
 
     private val textWatcher = object : TextWatcher {
