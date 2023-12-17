@@ -78,9 +78,14 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(FragmentLogInBinding::i
                                 .show()
 
                             viewModel.saveToken(activeUser.token!!, activeUser.email!!, binding.cbRememberMe.isChecked)
-                            delay(3000)
-                            binding.pbLogIn.visibility = View.GONE
-                            openHome(activeUser.email!!)
+                            viewModel.successFlow.collect(){
+                                when(it){
+                                    is LogInFragmentNavigationEvent.NavigationToHome->{
+                                        binding.pbLogIn.visibility = View.GONE
+                                        openHome(activeUser.email!!)}
+                                }
+
+                            }
 
 
 

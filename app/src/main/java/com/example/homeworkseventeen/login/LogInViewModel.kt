@@ -9,7 +9,9 @@ import com.example.homeworkseventeen.dataStore.DataStoreUtil
 import com.example.homeworkseventeen.resource.Resource
 import com.example.homeworkseventeen.responses.ResponseLogIn
 import com.example.homeworksixteen.network.Network
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -26,6 +28,9 @@ class LogInViewModel() : ViewModel() {
         )
     )
     val logInFlow: StateFlow<Resource<ResponseLogIn>> = _logInFlow.asStateFlow()
+
+    private val _successFlow = MutableSharedFlow<LogInFragmentNavigationEvent>()
+    val successFlow: SharedFlow<LogInFragmentNavigationEvent> get() = _successFlow
 
 
     fun logIn(email: String, password: String) {
@@ -58,10 +63,14 @@ class LogInViewModel() : ViewModel() {
         viewModelScope.launch {
 //            Log.d("savedBooleanData", remember.toString())
             DataStoreUtil.saveData(token, email, remember)
+            _successFlow.emit(LogInFragmentNavigationEvent.NavigationToHome)
         }
 
     }
 
 
+}
 
+sealed class LogInFragmentNavigationEvent{
+    object NavigationToHome: LogInFragmentNavigationEvent()
 }
