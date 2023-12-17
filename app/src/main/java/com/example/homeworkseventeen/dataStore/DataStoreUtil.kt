@@ -19,15 +19,14 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "se
 
 
 
-object DataStoreUtil {
+object DataStoreUtil {val REMEMBER = booleanPreferencesKey("remember")
     val TOKEN = stringPreferencesKey("token")
     val EMAIL = stringPreferencesKey("email")
-    val REMEMBER = booleanPreferencesKey("remember")
+
 
     suspend fun saveData(token: String, email: String, remember: Boolean) {
 
         App.application.applicationContext.dataStore.edit { settings ->
-            d("kkp", "jj")
             settings[TOKEN] = token
             settings[EMAIL] = email
             settings[REMEMBER] = remember
@@ -44,4 +43,12 @@ object DataStoreUtil {
             val remember = preferences[REMEMBER] ?: false
             arrayOf(email, remember.toString())
         }
+
+    suspend fun clearSession() {
+        App.application.applicationContext.dataStore.edit { settings ->
+            settings.remove(TOKEN)
+            settings.remove(EMAIL)
+            settings.remove(REMEMBER)
+        }
+    }
 }

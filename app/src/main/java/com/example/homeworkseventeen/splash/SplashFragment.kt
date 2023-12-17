@@ -30,8 +30,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(FragmentSplashBinding
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED){
                 viewModel.sessionFlow.collect{
-                    Toast.makeText(requireContext(), it[0], Toast.LENGTH_SHORT).show()
-                    Toast.makeText(requireContext(), it[1], Toast.LENGTH_SHORT).show()
+
                     delay(2000)
                     openSpecificFragment(it[0], it[1].toBoolean())
 

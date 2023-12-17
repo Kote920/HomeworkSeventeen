@@ -3,12 +3,8 @@ package com.example.homeworkseventeen.login
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log.d
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -17,19 +13,14 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.homeworkseventeen.BaseFragment
-import com.example.homeworkseventeen.R
-import com.example.homeworkseventeen.SessionManager
 import com.example.homeworkseventeen.databinding.FragmentLogInBinding
-import com.example.homeworkseventeen.home.HomeFragmentArgs
 import com.example.homeworkseventeen.resource.Resource
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class LogInFragment : BaseFragment<FragmentLogInBinding>(FragmentLogInBinding::inflate) {
 
-    private val viewModel: LogInViewModel by viewModels {
-        LogInViewModelFactory(SessionManager(requireContext()))
-    }
-
+    private val viewModel: LogInViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Use the Kotlin extension in the fragment-ktx artifact.
@@ -45,13 +36,7 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(FragmentLogInBinding::i
 
 
     override fun setUp() {
-//        if (!args.checker) {
-//            viewModel.logOut()
-//        } else if (viewModel.checkRemember()) {
-//
-//            openHome(viewModel.getEmail()!!)
-//
-//        }
+
 
     }
 
@@ -62,7 +47,6 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(FragmentLogInBinding::i
                 viewModel.logIn("eve.holt@reqres.in", binding.etPassword.text.toString())
                 binding.btnLogIn.isEnabled = false
                 bindObserves()
-                viewModel.setRemember(binding.cbRememberMe.isChecked)
 
             }
 
@@ -75,13 +59,6 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(FragmentLogInBinding::i
             openRegister()
         }
 
-        binding.cbRememberMe.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                viewModel.setRemember(true)
-            } else {
-                viewModel.setRemember(false)
-            }
-        }
 
     }
 
@@ -97,12 +74,12 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(FragmentLogInBinding::i
 
                         is Resource.Success -> {
                             val activeUser = it.responseData
-                            binding.pbLogIn.visibility = View.GONE
                             Toast.makeText(requireContext(), "log in success", Toast.LENGTH_SHORT)
                                 .show()
-                            d("bla", activeUser.token + activeUser.email)
+
                             viewModel.saveToken(activeUser.token!!, activeUser.email!!, binding.cbRememberMe.isChecked)
-                            Toast.makeText(requireContext(), binding.cbRememberMe.isChecked.toString(), Toast.LENGTH_SHORT).show()
+                            delay(3000)
+                            binding.pbLogIn.visibility = View.GONE
                             openHome(activeUser.email!!)
 
 

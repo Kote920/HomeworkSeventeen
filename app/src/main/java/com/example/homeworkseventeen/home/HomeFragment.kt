@@ -22,6 +22,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
 
     val args: HomeFragmentArgs by navArgs()
+    private val viewModel: HomeViewModel by viewModels()
 
 
     override fun setUp() {
@@ -34,7 +35,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     override fun listeners() {
 
         binding.btnBack.setOnClickListener {
-
+            viewModel.killSession()
             openLogIn()
         }
 

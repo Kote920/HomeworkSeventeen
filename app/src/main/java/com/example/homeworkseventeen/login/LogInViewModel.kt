@@ -1,26 +1,20 @@
 package com.example.homeworkseventeen.login
 
 import android.util.Log
-import androidx.datastore.dataStore
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.homeworkseventeen.Request
 
-import com.example.homeworkseventeen.SessionManager
 import com.example.homeworkseventeen.dataStore.DataStoreUtil
 import com.example.homeworkseventeen.resource.Resource
 import com.example.homeworkseventeen.responses.ResponseLogIn
 import com.example.homeworksixteen.network.Network
-import com.example.homeworksixteen.service.LogInService
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class LogInViewModel(private val sessionManager: SessionManager) : ViewModel() {
+class LogInViewModel() : ViewModel() {
 
 
 
@@ -45,9 +39,7 @@ class LogInViewModel(private val sessionManager: SessionManager) : ViewModel() {
                 if (response.isSuccessful) {
                     val activeUser = response.body()!!
                     activeUser.email = email
-//                    sessionManager.userEmail = email
-//                    sessionManager.userToken = activeUser.token
-//                    sessionManager.isLoggedIn = true
+
 
                     _logInFlow.value = Resource.Success(activeUser)
                 } else {
@@ -59,30 +51,12 @@ class LogInViewModel(private val sessionManager: SessionManager) : ViewModel() {
             }
         }
     }
-//    fun checkSession(): Boolean {
-//        return sessionManager.isLoggedIn
-//    }
-//
-//    fun setLoggedIn(isLoggedIn: Boolean) {
-//        sessionManager.isLoggedIn = isLoggedIn
-//    }
-    fun setRemember(remember: Boolean){
-        sessionManager.remember = remember
-    }
-//    fun checkRemember():Boolean{
-//        return sessionManager.remember
-//    }
-//
-//    fun logOut(){
-//        sessionManager.clearSession()
-//    }
-//    fun getEmail(): String?{
-//        return sessionManager.userEmail
-//    }
+
+
 
     fun saveToken(token: String, email: String, remember : Boolean){
         viewModelScope.launch {
-            Log.d("savedBooleanData", remember.toString())
+//            Log.d("savedBooleanData", remember.toString())
             DataStoreUtil.saveData(token, email, remember)
         }
 
