@@ -1,4 +1,4 @@
-package com.example.homeworkseventeen
+package com.example.homeworkseventeen.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,10 +8,10 @@ import android.widget.Toast
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import com.example.homeworkseventeen.R
 
 
 typealias inflater<VB> = (LayoutInflater, ViewGroup?, Boolean) -> VB
-
 abstract class BaseFragment<VB : ViewBinding>(private val inflate: inflater<VB>) : Fragment() {
 
     private var _binding: VB? = null

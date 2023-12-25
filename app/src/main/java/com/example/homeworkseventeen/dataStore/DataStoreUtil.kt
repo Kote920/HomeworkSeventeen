@@ -51,4 +51,6 @@ object DataStoreUtil {val REMEMBER = booleanPreferencesKey("remember")
             settings.remove(REMEMBER)
         }
     }
+
+
 }

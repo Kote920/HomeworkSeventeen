@@ -1,4 +1,4 @@
-package com.example.homeworkseventeen.login
+package com.example.homeworkseventeen.presentation.login
 
 import android.os.Bundle
 import android.text.Editable
@@ -12,12 +12,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.homeworkseventeen.BaseFragment
 import com.example.homeworkseventeen.databinding.FragmentLogInBinding
-import com.example.homeworkseventeen.resource.Resource
-import kotlinx.coroutines.delay
+import com.example.homeworkseventeen.data.resource.Resource
+import com.example.homeworkseventeen.presentation.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-
+@AndroidEntryPoint
 class LogInFragment : BaseFragment<FragmentLogInBinding>(FragmentLogInBinding::inflate) {
 
     private val viewModel: LogInViewModel by viewModels()
@@ -40,7 +40,7 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(FragmentLogInBinding::i
 
     }
 
-    override fun listeners() {
+    override fun    listeners() {
         binding.btnLogIn.setOnClickListener {
 
             if (emailValidation(binding.etEmail) && inputValidation(binding.etPassword)) {
@@ -80,7 +80,7 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(FragmentLogInBinding::i
                             viewModel.saveToken(activeUser.token!!, activeUser.email!!, binding.cbRememberMe.isChecked)
                             viewModel.successFlow.collect(){
                                 when(it){
-                                    is LogInFragmentNavigationEvent.NavigationToHome->{
+                                    is LogInFragmentNavigationEvent.NavigationToHome ->{
                                         binding.pbLogIn.visibility = View.GONE
                                         openHome(activeUser.email!!)}
                                 }

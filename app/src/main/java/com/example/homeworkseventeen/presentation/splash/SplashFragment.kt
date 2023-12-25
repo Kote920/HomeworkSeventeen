@@ -1,17 +1,16 @@
-package com.example.homeworkseventeen.splash
+package com.example.homeworkseventeen.presentation.splash
 
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.example.homeworkseventeen.BaseFragment
 import com.example.homeworkseventeen.databinding.FragmentSplashBinding
+import com.example.homeworkseventeen.presentation.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-
+@AndroidEntryPoint
 class SplashFragment : BaseFragment<FragmentSplashBinding>(FragmentSplashBinding::inflate) {
 
     private val viewModel: SplashViewModel by viewModels()

@@ -1,9 +1,10 @@
-package com.example.homeworkseventeen.home
+package com.example.homeworkseventeen.presentation.home
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.homeworkseventeen.dataStore.DataStoreUtil
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch

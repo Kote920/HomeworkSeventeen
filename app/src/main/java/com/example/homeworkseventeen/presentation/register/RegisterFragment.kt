@@ -1,24 +1,20 @@
-package com.example.homeworkseventeen.register
+package com.example.homeworkseventeen.presentation.register
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.example.homeworkseventeen.BaseFragment
-import com.example.homeworkseventeen.R
 import com.example.homeworkseventeen.databinding.FragmentRegisterBinding
-import com.example.homeworkseventeen.resource.Resource
+import com.example.homeworkseventeen.data.resource.Resource
+import com.example.homeworkseventeen.presentation.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-
+@AndroidEntryPoint
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterBinding::inflate) {
     private val viewModel: RegisterViewModel by viewModels()
     override fun setUp() {

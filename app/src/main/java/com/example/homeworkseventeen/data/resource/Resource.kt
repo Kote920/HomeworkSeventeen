@@ -1,4 +1,4 @@
-package com.example.homeworkseventeen.resource
+package com.example.homeworkseventeen.data.resource
 
 sealed class Resource<D>(
 ) {
